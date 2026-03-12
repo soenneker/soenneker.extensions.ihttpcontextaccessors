@@ -15,7 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Soenneker.Extensions.IHttpContextAccessors.csproj" />
+        <ProjectReference Include="..\..\src\Soenneker.Extensions.IHttpContextAccessors\Soenneker.Extensions.IHttpContextAccessors.csproj" />
     </ItemGroup>
 
     <ItemGroup>
