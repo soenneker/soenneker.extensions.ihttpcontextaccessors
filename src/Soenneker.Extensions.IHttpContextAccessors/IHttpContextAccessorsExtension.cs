@@ -7,6 +7,9 @@ namespace Soenneker.Extensions.IHttpContextAccessors;
 /// A collection of helpful IHttpContextAccessor extension methods
 /// </summary>
 // ReSharper disable once InconsistentNaming
+/// <summary>
+/// Represents the i http context accessors extension.
+/// </summary>
 public static class IHttpContextAccessorsExtension
 {
     /// <summary>
