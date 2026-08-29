@@ -4,7 +4,7 @@
 [![](https://img.shields.io/github/actions/workflow/status/soenneker/soenneker.extensions.ihttpcontextaccessors/codeql.yml?label=CodeQL&style=for-the-badge)](https://github.com/soenneker/soenneker.extensions.ihttpcontextaccessors/actions/workflows/codeql.yml)
 
 # ![](https://user-images.githubusercontent.com/4441470/224455560-91ed3ee7-f510-4041-a8d2-3fc093025112.png) Soenneker.Extensions.IHttpContextAccessors
-Gets the current request's best available client IP address from an injected `IHttpContextAccessor`.
+Extension methods for retrieving common request and connection data through an injected `IHttpContextAccessor`.
 
 ## Installation
 
