@@ -4,7 +4,7 @@
 [![](https://img.shields.io/github/actions/workflow/status/soenneker/soenneker.extensions.ihttpcontextaccessors/codeql.yml?label=CodeQL&style=for-the-badge)](https://github.com/soenneker/soenneker.extensions.ihttpcontextaccessors/actions/workflows/codeql.yml)
 
 # ![](https://user-images.githubusercontent.com/4441470/224455560-91ed3ee7-f510-4041-a8d2-3fc093025112.png) Soenneker.Extensions.IHttpContextAccessors
-A collection of helpful IHttpContextAccessor extension methods.
+Gets the current request's best available client IP address from an injected `IHttpContextAccessor`.
 
 ## Installation
 
@@ -12,15 +12,14 @@ A collection of helpful IHttpContextAccessor extension methods.
 dotnet add package Soenneker.Extensions.IHttpContextAccessors
 ```
 
-## Quick start
+## Usage
 
 ```csharp
 using Soenneker.Extensions.IHttpContextAccessors;
 
-// Given an existing Microsoft.AspNetCore.Http.IHttpContextAccessor named accessor:
-var result = accessor.GetRequestIp();
+string? clientIp = httpContextAccessor.GetRequestIp();
 ```
 
-## Common operations
+`GetRequestIp()` delegates to the companion `HttpContext` extension. It checks proxy headers such as `CF-Connecting-IP` and `X-Forwarded-For`, then falls back to the connection's remote IP. It returns `null` when there is no active `HttpContext` or no address can be found.
 
-- `GetRequestIp()` - Retrieves the client IP address from the current `Microsoft.AspNetCore.Http.HttpContext` using standard proxy headers such as "CF-Connecting-IP" and "X-Forwarded-For", or falls back to the remote IP address.
+Forwarded headers are caller-controlled unless your proxy and ASP.NET Core forwarded-header configuration establish trust. Do not treat the returned text as authenticated identity by itself.
