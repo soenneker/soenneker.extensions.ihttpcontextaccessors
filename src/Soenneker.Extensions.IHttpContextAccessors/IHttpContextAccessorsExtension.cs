@@ -3,12 +3,9 @@ using System.Diagnostics.Contracts;
 
 namespace Soenneker.Extensions.IHttpContextAccessors;
 
-/// <summary>
-/// A collection of helpful IHttpContextAccessor extension methods
-/// </summary>
 // ReSharper disable once InconsistentNaming
 /// <summary>
-/// Represents the i http context accessors extension.
+/// Provides access to request data exposed by the active HTTP context.
 /// </summary>
 public static class IHttpContextAccessorsExtension
 {
@@ -22,7 +19,8 @@ public static class IHttpContextAccessorsExtension
     /// </returns>
     /// <remarks>
     /// This method delegates to <see cref="HttpContextExtension.GetRequestIp(Microsoft.AspNetCore.Http.HttpContext)"/> and is useful in scenarios
-    /// where only <see cref="Microsoft.AspNetCore.Http.IHttpContextAccessor"/> is available via dependency injection (e.g., background services).
+    /// where only <see cref="Microsoft.AspNetCore.Http.IHttpContextAccessor"/> is available through dependency injection.
+    /// Forwarding headers are trustworthy only when a trusted proxy replaces client-supplied values.
     /// </remarks>
     [Pure]
     public static string? GetRequestIp(this Microsoft.AspNetCore.Http.IHttpContextAccessor accessor)

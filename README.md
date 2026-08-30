@@ -14,12 +14,22 @@ dotnet add package Soenneker.Extensions.IHttpContextAccessors
 
 ## Usage
 
+Register the ASP.NET Core accessor once:
+
+```csharp
+builder.Services.AddHttpContextAccessor();
+```
+
+Then read the address while an HTTP request is active:
+
 ```csharp
 using Soenneker.Extensions.IHttpContextAccessors;
 
 string? clientIp = httpContextAccessor.GetRequestIp();
 ```
 
-`GetRequestIp()` delegates to the companion `HttpContext` extension. It checks proxy headers such as `CF-Connecting-IP` and `X-Forwarded-For`, then falls back to the connection's remote IP. It returns `null` when there is no active `HttpContext` or no address can be found.
+`GetRequestIp()` delegates to the companion `HttpContext` extension. It uses a valid `CF-Connecting-IP` address first, then a valid first address from `X-Forwarded-For`, then the connection's remote IP. Malformed header values are ignored. It returns `null` when there is no active `HttpContext` or no address can be found.
 
 Forwarded headers are caller-controlled unless your proxy and ASP.NET Core forwarded-header configuration establish trust. Do not treat the returned text as authenticated identity by itself.
+
+`IHttpContextAccessor.HttpContext` is request-flow state. Call this extension when the value is needed; do not capture the `HttpContext` for later background work. If a background operation needs the address, copy the returned string into the work item while handling the request.
